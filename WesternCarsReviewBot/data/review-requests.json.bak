@@ -29,55 +29,6 @@
         "attempts": 0,
         "reason": "No valid email address"
       }
-    },
-    {
-      "eventId": "DISPATCH_BOOKING_COMPLETE:71740272",
-      "bookingId": "71740272",
-      "tripId": "70240690A",
-      "requestId": "70240690",
-      "receivedAt": "2026-11-17T22:42:29.480Z",
-      "sendAfter": "2026-11-17T22:45:21.645Z",
-      "eligibility": "verified",
-      "customer": {
-        "name": "Mark",
-        "phone": "00447808545736",
-        "email": null
-      },
-      "bookingStatus": "COMPLETED",
-      "completedAtMs": "1794955348000",
-      "whatsapp": {
-        "status": "not_sent",
-        "attempts": 0
-      },
-      "email": {
-        "status": "skipped",
-        "attempts": 0,
-        "reason": "No valid email address"
-      }
-    },
-    {
-      "eventId": "DISPATCH_BOOKING_COMPLETE:71739866",
-      "bookingId": "71739866",
-      "tripId": "70239080A",
-      "requestId": "70239080",
-      "receivedAt": "2026-11-17T22:44:21.001Z",
-      "sendAfter": "2026-11-17T22:46:47.436Z",
-      "eligibility": "verified",
-      "customer": {
-        "name": "Michael Eels",
-        "phone": "00447736167588",
-        "email": "michaeleels@ymail.com"
-      },
-      "bookingStatus": "COMPLETED",
-      "completedAtMs": "1794955460000",
-      "whatsapp": {
-        "status": "not_sent",
-        "attempts": 0
-      },
-      "email": {
-        "status": "not_sent",
-        "attempts": 0
-      }
     }
   ]
 }

@@ -1414,6 +1414,87 @@
         }
       },
       "archivedAt": "2026-11-17T22:45:12.860Z"
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71740272",
+      "bookingId": "71740272",
+      "tripId": "70240690A",
+      "requestId": "70240690",
+      "receivedAt": "2026-11-17T22:42:29.480Z",
+      "sendAfter": "2026-11-17T22:45:21.645Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "Mark",
+        "phone": "00447808545736",
+        "email": null
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794955348000",
+      "whatsapp": {
+        "status": "sent",
+        "attempts": 1,
+        "channel": "whatsapp",
+        "recipient": "447808545736",
+        "sentAt": "2026-11-17T22:46:16.222Z",
+        "submittedAt": "2026-11-17T22:46:16.222Z",
+        "providerResponse": {
+          "provider": "openwa-gateway",
+          "messageId": "true_267911570702531@lid_3EB07A09F54CBBD7BEF1F9",
+          "accepted": true,
+          "summary": "{\"messageId\":\"true_267911570702531@lid_3EB07A09F54CBBD7BEF1F9\",\"timestamp\":1794955575,\"provider\":\"openwa-gateway\"}"
+        }
+      },
+      "email": {
+        "status": "skipped",
+        "attempts": 0,
+        "reason": "No valid email address"
+      },
+      "archivedAt": "2026-11-17T22:46:16.246Z"
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71739866",
+      "bookingId": "71739866",
+      "tripId": "70239080A",
+      "requestId": "70239080",
+      "receivedAt": "2026-11-17T22:44:21.001Z",
+      "sendAfter": "2026-11-17T22:46:47.436Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "Michael Eels",
+        "phone": "00447736167588",
+        "email": "michaeleels@ymail.com"
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794955460000",
+      "whatsapp": {
+        "status": "sent",
+        "attempts": 1,
+        "channel": "whatsapp",
+        "recipient": "447736167588",
+        "sentAt": "2026-11-17T22:47:08.322Z",
+        "submittedAt": "2026-11-17T22:47:08.322Z",
+        "providerResponse": {
+          "provider": "openwa-gateway",
+          "messageId": "true_247854106984484@lid_3EB029BAF90F5AE2768674",
+          "accepted": true,
+          "summary": "{\"messageId\":\"true_247854106984484@lid_3EB029BAF90F5AE2768674\",\"timestamp\":1794955627,\"provider\":\"openwa-gateway\"}"
+        }
+      },
+      "email": {
+        "status": "sent",
+        "attempts": 1,
+        "channel": "email",
+        "recipient": "michaeleels@ymail.com",
+        "sentAt": "2026-11-17T22:47:09.699Z",
+        "submittedAt": "2026-11-17T22:47:09.699Z",
+        "providerResponse": {
+          "provider": "microsoft-graph",
+          "httpStatus": 202,
+          "requestId": "90542e9c-ffd3-4993-8086-05942087d9bc",
+          "accepted": true
+        }
+      },
+      "archivedAt": "2026-11-17T22:47:09.769Z"
     }
   ]
 }
