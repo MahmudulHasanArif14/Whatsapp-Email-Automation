@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="dashboard-token" content="__DASHBOARD_TOKEN__">
+  <title>Western Cars Operations</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">WC</span>
+        <span class="brand-text"><strong>Western Cars</strong><small>Review Automation</small></span>
+      </div>
+      <nav id="nav"></nav>
+      <div class="sidebar-foot">
+        <span id="conn" class="conn" role="status">Connecting…</span>
+      </div>
+    </aside>
+
+    <div class="main">
+      <header class="topbar">
+        <button class="icon-btn menu-btn" id="menu" aria-label="Toggle navigation">☰</button>
+        <h1 id="page-title">Overview</h1>
+        <div class="top-actions">
+          <button class="btn primary big" id="start-all">▶ START ALL</button>
+          <button class="btn danger" id="stop-all">■ STOP ALL</button>
+          <button class="icon-btn" id="theme" aria-label="Switch light/dark theme" title="Theme">◐</button>
+        </div>
+      </header>
+      <div id="banner"></div>
+      <main id="view" tabindex="-1"></main>
+    </div>
+  </div>
+  <div id="toasts" aria-live="polite"></div>
+  <script src="/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,1534 @@
+{
+  "requests": [
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71739063",
+      "bookingId": "71739063",
+      "tripId": "70239313A",
+      "requestId": "70239313",
+      "receivedAt": "2026-11-17T20:09:44.341Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "Adam Randell",
+        "phone": "00447440925565",
+        "email": "ramzy@generationalwealthpartner.org"
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794946184000",
+      "whatsapp": {
+        "status": "not_sent",
+        "attempts": 5,
+        "channel": "whatsapp",
+        "recipient": "447440925565",
+        "lastError": "fetch failed",
+        "lastAttemptAt": "2026-11-17T21:30:14.133Z",
+        "nextRetryAt": "2026-11-18T00:00:00.648Z",
+        "reason": "Waiting: WhatsApp pacing limit"
+      },
+      "email": {
+        "status": "sent",
+        "attempts": 1,
+        "channel": "email",
+        "recipient": "ramzy@generationalwealthpartner.org",
+        "sentAt": "2026-11-17T20:10:11.050Z",
+        "submittedAt": "2026-11-17T20:10:11.050Z",
+        "providerResponse": {
+          "provider": "microsoft-graph",
+          "httpStatus": 202,
+          "requestId": "7cc45154-490e-46d9-8b1b-a846d2158402",
+          "accepted": true
+        }
+      }
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71738750",
+      "bookingId": "71738750",
+      "tripId": "70238949A",
+      "requestId": "70238949",
+      "receivedAt": "2026-11-17T20:11:06.292Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "Hurper",
+        "phone": "00441342810216",
+        "email": null
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794946266000",
+      "whatsapp": {
+        "status": "not_sent",
+        "attempts": 4,
+        "channel": "whatsapp",
+        "recipient": "441342810216",
+        "lastError": "OpenWA gateway HTTP 400: {\"message\":\"WhatsApp could not resolve the recipient 441342810216@c.us. Either the number is not on WhatsApp, or this session has no existing chat with it — message it once from the phone, then retry.\",\"error\":\"Bad Request\",\"statusCode\":400}",
+        "lastAttemptAt": "2026-11-17T21:25:22.696Z",
+        "nextRetryAt": "2026-11-18T00:00:00.423Z",
+        "reason": "Waiting: WhatsApp pacing limit"
+      },
+      "email": {
+        "status": "skipped",
+        "attempts": 0,
+        "reason": "No valid email address"
+      }
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71739081",
+      "bookingId": "71739081",
+      "tripId": "70239331A",
+      "requestId": "70239331",
+      "receivedAt": "2026-11-17T20:19:29.585Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "David//reception //",
+        "phone": "00441342718529",
+        "email": null
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794946769000",
+      "whatsapp": {
+        "status": "not_sent",
+        "attempts": 4,
+        "channel": "whatsapp",
+        "recipient": "441342718529",
+        "lastError": "fetch failed",
+        "lastAttemptAt": "2026-11-17T21:30:55.284Z",
+        "nextRetryAt": "2026-11-18T00:00:00.374Z",
+        "reason": "Waiting: WhatsApp pacing limit"
+      },
+      "email": {
+        "status": "skipped",
+        "attempts": 0,
+        "reason": "No valid email address"
+      }
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71739236",
+      "bookingId": "71739236",
+      "tripId": "70239503A",
+      "requestId": "70239503",
+      "receivedAt": "2026-11-17T20:27:42.497Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "Leonora Lee",
+        "phone": "00447528786704",
+        "email": "leonoralee0@gmail.com"
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794947262000",
+      "whatsapp": {
+        "status": "not_sent",
+        "attempts": 2,
+        "channel": "whatsapp",
+        "recipient": "447528786704",
+        "lastError": "fetch failed",
+        "lastAttemptAt": "2026-11-17T21:28:31.567Z",
+        "nextRetryAt": "2026-11-18T00:00:00.145Z",
+        "reason": "Waiting: WhatsApp pacing limit"
+      },
+      "email": {
+        "status": "sent",
+        "attempts": 1,
+        "channel": "email",
+        "recipient": "leonoralee0@gmail.com",
+        "sentAt": "2026-11-17T20:27:54.038Z",
+        "submittedAt": "2026-11-17T20:27:54.038Z",
+        "providerResponse": {
+          "provider": "microsoft-graph",
+          "httpStatus": 202,
+          "requestId": "ebb9270b-b93d-4956-8e65-d6b1b6eb2047",
+          "accepted": true
+        }
+      }
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71739301",
+      "bookingId": "71739301",
+      "tripId": "70239583A",
+      "requestId": "70239583",
+      "receivedAt": "2026-11-17T20:29:44.472Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "Charlie Howcroft",
+        "phone": "00447538932919",
+        "email": "CHARLIEHOWCROFT6@GMAIL.COM"
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794947383000",
+      "whatsapp": {
+        "status": "not_sent",
+        "attempts": 0,
+        "channel": "whatsapp",
+        "recipient": "447538932919",
+        "nextRetryAt": "2026-11-18T00:00:00.757Z",
+        "reason": "Waiting: WhatsApp pacing limit"
+      },
+      "email": {
+        "status": "sent",
+        "attempts": 1,
+        "channel": "email",
+        "recipient": "CHARLIEHOWCROFT6@GMAIL.COM",
+        "sentAt": "2026-11-17T20:29:55.164Z",
+        "submittedAt": "2026-11-17T20:29:55.164Z",
+        "providerResponse": {
+          "provider": "microsoft-graph",
+          "httpStatus": 202,
+          "requestId": "3f2c9bbb-513d-4828-85a9-d39eb25afb60",
+          "accepted": true
+        }
+      }
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71739316",
+      "bookingId": "71739316",
+      "tripId": "70239595A",
+      "requestId": "70239595",
+      "receivedAt": "2026-11-17T20:30:09.731Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "Mr. Jerry",
+        "phone": "00447539028246",
+        "email": null
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794947408000",
+      "whatsapp": {
+        "status": "not_sent",
+        "attempts": 0,
+        "channel": "whatsapp",
+        "recipient": "447539028246",
+        "nextRetryAt": "2026-11-18T00:00:00.170Z",
+        "reason": "Waiting: WhatsApp pacing limit"
+      },
+      "email": {
+        "status": "skipped",
+        "attempts": 0,
+        "reason": "No valid email address"
+      }
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71739133",
+      "bookingId": "71739133",
+      "tripId": "70239346A",
+      "requestId": "70239346",
+      "receivedAt": "2026-11-17T20:31:19.759Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "Fallon",
+        "phone": "00447741431384",
+        "email": null
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794947479000",
+      "whatsapp": {
+        "status": "not_sent",
+        "attempts": 0,
+        "channel": "whatsapp",
+        "recipient": "447741431384",
+        "nextRetryAt": "2026-11-18T00:00:00.272Z",
+        "reason": "Waiting: WhatsApp pacing limit"
+      },
+      "email": {
+        "status": "skipped",
+        "attempts": 0,
+        "reason": "No valid email address"
+      }
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71739271",
+      "bookingId": "71739271",
+      "tripId": "70239544A",
+      "requestId": "70239544",
+      "receivedAt": "2026-11-17T20:32:16.362Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "Mr. Victor",
+        "phone": "00447891733010",
+        "email": null
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794947536000",
+      "whatsapp": {
+        "status": "not_sent",
+        "attempts": 0,
+        "channel": "whatsapp",
+        "recipient": "447891733010",
+        "nextRetryAt": "2026-11-18T00:00:00.238Z",
+        "reason": "Waiting: WhatsApp pacing limit"
+      },
+      "email": {
+        "status": "skipped",
+        "attempts": 0,
+        "reason": "No valid email address"
+      }
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71739159",
+      "bookingId": "71739159",
+      "tripId": "70239413A",
+      "requestId": "70239413",
+      "receivedAt": "2026-11-17T20:34:30.391Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "Mr. Andy",
+        "phone": "00447730285152",
+        "email": null
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794947670000",
+      "whatsapp": {
+        "status": "not_sent",
+        "attempts": 0,
+        "channel": "whatsapp",
+        "recipient": "447730285152",
+        "nextRetryAt": "2026-11-18T00:00:00.582Z",
+        "reason": "Waiting: WhatsApp pacing limit"
+      },
+      "email": {
+        "status": "skipped",
+        "attempts": 0,
+        "reason": "No valid email address"
+      }
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71739367",
+      "bookingId": "71739367",
+      "tripId": "70239662A",
+      "requestId": "70239662",
+      "receivedAt": "2026-11-17T20:45:28.779Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "Ms. Jessica Foster",
+        "phone": "00447450198379",
+        "email": null
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794948328000",
+      "whatsapp": {
+        "status": "not_sent",
+        "attempts": 0,
+        "channel": "whatsapp",
+        "recipient": "447450198379",
+        "nextRetryAt": "2026-11-18T00:00:00.526Z",
+        "reason": "Waiting: WhatsApp pacing limit"
+      },
+      "email": {
+        "status": "skipped",
+        "attempts": 0,
+        "reason": "No valid email address"
+      }
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71739371",
+      "bookingId": "71739371",
+      "tripId": "70239665A",
+      "requestId": "70239665",
+      "receivedAt": "2026-11-17T20:46:58.556Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "Lhan",
+        "phone": "00447843903629",
+        "email": null
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794948418000",
+      "whatsapp": {
+        "status": "not_sent",
+        "attempts": 0,
+        "channel": "whatsapp",
+        "recipient": "447843903629",
+        "nextRetryAt": "2026-11-18T00:00:00.412Z",
+        "reason": "Waiting: WhatsApp pacing limit"
+      },
+      "email": {
+        "status": "skipped",
+        "attempts": 0,
+        "reason": "No valid email address"
+      }
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71739437",
+      "bookingId": "71739437",
+      "tripId": "70239739A",
+      "requestId": "70239739",
+      "receivedAt": "2026-11-17T20:48:38.020Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "Caleb Slegg",
+        "phone": "00447393973252",
+        "email": "C.SLEGG91@GMAIL.COM"
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794948517000",
+      "whatsapp": {
+        "status": "not_sent",
+        "attempts": 0,
+        "channel": "whatsapp",
+        "recipient": "447393973252",
+        "nextRetryAt": "2026-11-18T00:00:00.236Z",
+        "reason": "Waiting: WhatsApp pacing limit"
+      },
+      "email": {
+        "status": "sent",
+        "attempts": 1,
+        "channel": "email",
+        "recipient": "C.SLEGG91@GMAIL.COM",
+        "sentAt": "2026-11-17T20:49:17.613Z",
+        "submittedAt": "2026-11-17T20:49:17.613Z",
+        "providerResponse": {
+          "provider": "microsoft-graph",
+          "httpStatus": 202,
+          "requestId": "0646e37b-a13f-49b0-9ecb-18c57061841c",
+          "accepted": true
+        }
+      }
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71739391",
+      "bookingId": "71739391",
+      "tripId": "70239687A",
+      "requestId": "70239687",
+      "receivedAt": "2026-11-17T20:49:06.991Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "David Taylor",
+        "phone": "00447398590810",
+        "email": "davidtaylor166@gmail.co.uk"
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794948546000",
+      "whatsapp": {
+        "status": "not_sent",
+        "attempts": 0,
+        "channel": "whatsapp",
+        "recipient": "447398590810",
+        "nextRetryAt": "2026-11-18T00:00:00.181Z",
+        "reason": "Waiting: WhatsApp pacing limit"
+      },
+      "email": {
+        "status": "sent",
+        "attempts": 1,
+        "channel": "email",
+        "recipient": "davidtaylor166@gmail.co.uk",
+        "sentAt": "2026-11-17T20:50:17.297Z",
+        "submittedAt": "2026-11-17T20:50:17.297Z",
+        "providerResponse": {
+          "provider": "microsoft-graph",
+          "httpStatus": 202,
+          "requestId": "55e9d518-048e-48b0-8bbb-d460e03b4586",
+          "accepted": true
+        }
+      }
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71739310",
+      "bookingId": "71739310",
+      "tripId": "70239588A",
+      "requestId": "70239588",
+      "receivedAt": "2026-11-17T20:49:26.315Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "Lois",
+        "phone": "00447841567985",
+        "email": null
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794948565000",
+      "whatsapp": {
+        "status": "not_sent",
+        "attempts": 0,
+        "channel": "whatsapp",
+        "recipient": "447841567985",
+        "nextRetryAt": "2026-11-18T00:00:00.055Z",
+        "reason": "Waiting: WhatsApp pacing limit"
+      },
+      "email": {
+        "status": "skipped",
+        "attempts": 0,
+        "reason": "No valid email address"
+      }
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71739455",
+      "bookingId": "71739455",
+      "tripId": "70239761A",
+      "requestId": "70239761",
+      "receivedAt": "2026-11-17T20:49:52.762Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "Ken Gundlach",
+        "phone": "00447487505594",
+        "email": "kjpg10@gmail.com"
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794948592000",
+      "whatsapp": {
+        "status": "not_sent",
+        "attempts": 0,
+        "channel": "whatsapp",
+        "recipient": "447487505594",
+        "nextRetryAt": "2026-11-18T00:00:00.133Z",
+        "reason": "Waiting: WhatsApp pacing limit"
+      },
+      "email": {
+        "status": "sent",
+        "attempts": 1,
+        "channel": "email",
+        "recipient": "kjpg10@gmail.com",
+        "sentAt": "2026-11-17T20:51:17.940Z",
+        "submittedAt": "2026-11-17T20:51:17.940Z",
+        "providerResponse": {
+          "provider": "microsoft-graph",
+          "httpStatus": 202,
+          "requestId": "ddd05d2b-7e73-4e97-ab38-fa2862b5ecad",
+          "accepted": true
+        }
+      }
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71739410",
+      "bookingId": "71739410",
+      "tripId": "70239709A",
+      "requestId": "70239709",
+      "receivedAt": "2026-11-17T20:50:15.955Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "Andrea Tolete",
+        "phone": "00447732189773",
+        "email": "ANDREA.TOLETE@YAHOO.COM"
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794948615000",
+      "whatsapp": {
+        "status": "not_sent",
+        "attempts": 0,
+        "channel": "whatsapp",
+        "recipient": "447732189773",
+        "nextRetryAt": "2026-11-18T00:00:00.737Z",
+        "reason": "Waiting: WhatsApp pacing limit"
+      },
+      "email": {
+        "status": "sent",
+        "attempts": 1,
+        "channel": "email",
+        "recipient": "ANDREA.TOLETE@YAHOO.COM",
+        "sentAt": "2026-11-17T20:52:17.826Z",
+        "submittedAt": "2026-11-17T20:52:17.826Z",
+        "providerResponse": {
+          "provider": "microsoft-graph",
+          "httpStatus": 202,
+          "requestId": "c85f96f9-e80d-4a78-b79b-39b47e057fcf",
+          "accepted": true
+        }
+      }
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71739339",
+      "bookingId": "71739339",
+      "tripId": "70239618A",
+      "requestId": "70239618",
+      "receivedAt": "2026-11-17T20:53:15.848Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "Justina",
+        "phone": "00447730335250",
+        "email": "Tylkotinka@gmail.com"
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794948795000",
+      "whatsapp": {
+        "status": "not_sent",
+        "attempts": 0
+      },
+      "email": {
+        "status": "sent",
+        "attempts": 1,
+        "channel": "email",
+        "recipient": "Tylkotinka@gmail.com",
+        "sentAt": "2026-11-17T20:53:17.950Z",
+        "submittedAt": "2026-11-17T20:53:17.950Z",
+        "providerResponse": {
+          "provider": "microsoft-graph",
+          "httpStatus": 202,
+          "requestId": "359a021d-3e7d-46fd-9e3c-4a1821a60ca5",
+          "accepted": true
+        }
+      }
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71739499",
+      "bookingId": "71739499",
+      "tripId": "70239813A",
+      "requestId": "70239813",
+      "receivedAt": "2026-11-17T20:56:02.368Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "Karim Martinez",
+        "phone": "00447923037988",
+        "email": "KARIMMRTNZ12@GMAIL.COM"
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794948962000",
+      "whatsapp": {
+        "status": "not_sent",
+        "attempts": 0
+      },
+      "email": {
+        "status": "sent",
+        "attempts": 1,
+        "channel": "email",
+        "recipient": "KARIMMRTNZ12@GMAIL.COM",
+        "sentAt": "2026-11-17T20:56:17.388Z",
+        "submittedAt": "2026-11-17T20:56:17.388Z",
+        "providerResponse": {
+          "provider": "microsoft-graph",
+          "httpStatus": 202,
+          "requestId": "8c97b459-4b72-4afb-899f-4e39c2f71ab8",
+          "accepted": true
+        }
+      }
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71739467",
+      "bookingId": "71739467",
+      "tripId": "70239770A",
+      "requestId": "70239770",
+      "receivedAt": "2026-11-17T20:56:40.337Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "Lauren Koumourou",
+        "phone": "00447305799650",
+        "email": "LAUREN.M.KOUMOUROU@GMAIL.COM"
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794949000000",
+      "whatsapp": {
+        "status": "not_sent",
+        "attempts": 0
+      },
+      "email": {
+        "status": "sent",
+        "attempts": 1,
+        "channel": "email",
+        "recipient": "LAUREN.M.KOUMOUROU@GMAIL.COM",
+        "sentAt": "2026-11-17T20:57:17.877Z",
+        "submittedAt": "2026-11-17T20:57:17.877Z",
+        "providerResponse": {
+          "provider": "microsoft-graph",
+          "httpStatus": 202,
+          "requestId": "195d9511-d60a-4195-b8fe-3628c6c118aa",
+          "accepted": true
+        }
+      }
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71739498",
+      "bookingId": "71739498",
+      "tripId": "70239812A",
+      "requestId": "70239812",
+      "receivedAt": "2026-11-17T20:58:01.059Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "Mr. Yohan",
+        "phone": "00447888716422",
+        "email": null
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794949080000",
+      "whatsapp": {
+        "status": "not_sent",
+        "attempts": 0
+      },
+      "email": {
+        "status": "skipped",
+        "attempts": 0,
+        "reason": "No valid email address"
+      }
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71739258",
+      "bookingId": "71739258",
+      "tripId": "70239443A",
+      "requestId": "70239443",
+      "receivedAt": "2026-11-17T20:59:02.092Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "Tim Bird",
+        "phone": "00447979146452",
+        "email": "TIMBIRD2011@HOTMAIL.CO.UK"
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794949141000",
+      "whatsapp": {
+        "status": "not_sent",
+        "attempts": 0
+      },
+      "email": {
+        "status": "sent",
+        "attempts": 1,
+        "channel": "email",
+        "recipient": "TIMBIRD2011@HOTMAIL.CO.UK",
+        "sentAt": "2026-11-17T20:59:17.634Z",
+        "submittedAt": "2026-11-17T20:59:17.634Z",
+        "providerResponse": {
+          "provider": "microsoft-graph",
+          "httpStatus": 202,
+          "requestId": "b9cf6a4d-8a6f-451d-9f07-0fa05f4b60ce",
+          "accepted": true
+        }
+      }
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71739509",
+      "bookingId": "71739509",
+      "tripId": "70239826A",
+      "requestId": "70239826",
+      "receivedAt": "2026-11-17T20:59:11.774Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "Lord James Light",
+        "phone": "00447984343990",
+        "email": "JAMESCARPENTERLIGHT@ICLOUD.COM"
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794949151000",
+      "whatsapp": {
+        "status": "not_sent",
+        "attempts": 0
+      },
+      "email": {
+        "status": "sent",
+        "attempts": 1,
+        "channel": "email",
+        "recipient": "JAMESCARPENTERLIGHT@ICLOUD.COM",
+        "sentAt": "2026-11-17T21:00:17.017Z",
+        "submittedAt": "2026-11-17T21:00:17.017Z",
+        "providerResponse": {
+          "provider": "microsoft-graph",
+          "httpStatus": 202,
+          "requestId": "99d073e4-af78-4662-8de6-e92917006cd1",
+          "accepted": true
+        }
+      }
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71739525",
+      "bookingId": "71739525",
+      "tripId": "70239603A",
+      "requestId": "70239603",
+      "receivedAt": "2026-11-17T21:01:21.019Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "Ms. Therisa",
+        "phone": "00447375690891",
+        "email": null
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794949280000",
+      "whatsapp": {
+        "status": "not_sent",
+        "attempts": 0
+      },
+      "email": {
+        "status": "skipped",
+        "attempts": 0,
+        "reason": "No valid email address"
+      }
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71739559",
+      "bookingId": "71739559",
+      "tripId": "70239881A",
+      "requestId": "70239881",
+      "receivedAt": "2026-11-17T21:02:55.523Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "Ms. Loago",
+        "phone": "00447375749291",
+        "email": null
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794949375000",
+      "whatsapp": {
+        "status": "not_sent",
+        "attempts": 0
+      },
+      "email": {
+        "status": "skipped",
+        "attempts": 0,
+        "reason": "No valid email address"
+      }
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71739538",
+      "bookingId": "71739538",
+      "tripId": "70233195A",
+      "requestId": "70233195",
+      "receivedAt": "2026-11-17T21:07:08.737Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "Chloe Boutle",
+        "phone": "00447464038814",
+        "email": "cboutle1989@gmail.com"
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794949628000",
+      "whatsapp": {
+        "status": "not_sent",
+        "attempts": 0
+      },
+      "email": {
+        "status": "sent",
+        "attempts": 1,
+        "channel": "email",
+        "recipient": "cboutle1989@gmail.com",
+        "sentAt": "2026-11-17T21:32:17.629Z",
+        "submittedAt": "2026-11-17T21:32:17.629Z",
+        "providerResponse": {
+          "provider": "microsoft-graph",
+          "httpStatus": 202,
+          "requestId": "f4d470b0-b63a-4e69-aee7-394767eb40d7",
+          "accepted": true
+        }
+      }
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71739515",
+      "bookingId": "71739515",
+      "tripId": "70239837A",
+      "requestId": "70239837",
+      "receivedAt": "2026-11-17T21:07:31.808Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "Ms. Jacqueline",
+        "phone": "00447796208853",
+        "email": null
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794949651000",
+      "whatsapp": {
+        "status": "not_sent",
+        "attempts": 0
+      },
+      "email": {
+        "status": "skipped",
+        "attempts": 0,
+        "reason": "No valid email address"
+      }
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71739531",
+      "bookingId": "71739531",
+      "tripId": "70239596A",
+      "requestId": "70239596",
+      "receivedAt": "2026-11-17T21:08:11.425Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "Mr. Alex Beckett",
+        "phone": "00447931380333",
+        "email": null
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794949691000",
+      "whatsapp": {
+        "status": "not_sent",
+        "attempts": 0
+      },
+      "email": {
+        "status": "skipped",
+        "attempts": 0,
+        "reason": "No valid email address"
+      }
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71739540",
+      "bookingId": "71739540",
+      "tripId": "70239450B",
+      "requestId": "70239450",
+      "receivedAt": "2026-11-17T21:09:03.309Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "Mr. Marc Gough",
+        "phone": "00447805015433",
+        "email": "MARC.GOUGH@NHS.NET"
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794949743000",
+      "whatsapp": {
+        "status": "not_sent",
+        "attempts": 0
+      },
+      "email": {
+        "status": "sent",
+        "attempts": 1,
+        "channel": "email",
+        "recipient": "MARC.GOUGH@NHS.NET",
+        "sentAt": "2026-11-17T21:33:37.749Z",
+        "submittedAt": "2026-11-17T21:33:37.749Z",
+        "providerResponse": {
+          "provider": "microsoft-graph",
+          "httpStatus": 202,
+          "requestId": "89234dfa-3f46-4dab-b820-89605c8c00af",
+          "accepted": true
+        }
+      }
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71739523",
+      "bookingId": "71739523",
+      "tripId": "70239592A",
+      "requestId": "70239592",
+      "receivedAt": "2026-11-17T21:11:44.556Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "Sam Hales",
+        "phone": "00447849837197",
+        "email": "SAM_HALES@OUTLOOK.COM"
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794949904000",
+      "whatsapp": {
+        "status": "not_sent",
+        "attempts": 0
+      },
+      "email": {
+        "status": "sent",
+        "attempts": 1,
+        "channel": "email",
+        "recipient": "SAM_HALES@OUTLOOK.COM",
+        "sentAt": "2026-11-17T21:52:21.054Z",
+        "submittedAt": "2026-11-17T21:52:21.054Z",
+        "providerResponse": {
+          "provider": "microsoft-graph",
+          "httpStatus": 202,
+          "requestId": "e9093f34-5e0d-4700-a271-414594f2d196",
+          "accepted": true
+        }
+      }
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71739637",
+      "bookingId": "71739637",
+      "tripId": "70239979A",
+      "requestId": "70239979",
+      "receivedAt": "2026-11-17T21:12:19.435Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "Natalie Wagstaff",
+        "phone": "00447757239930",
+        "email": "nataliegwagstaff@outlook.com"
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794949939000",
+      "whatsapp": {
+        "status": "not_sent",
+        "attempts": 0
+      },
+      "email": {
+        "status": "sent",
+        "attempts": 1,
+        "channel": "email",
+        "recipient": "nataliegwagstaff@outlook.com",
+        "sentAt": "2026-11-17T21:52:45.185Z",
+        "submittedAt": "2026-11-17T21:52:45.185Z",
+        "providerResponse": {
+          "provider": "microsoft-graph",
+          "httpStatus": 202,
+          "requestId": "0fc23286-195d-49ee-9f2b-224241ae89b0",
+          "accepted": true
+        }
+      }
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71739666",
+      "bookingId": "71739666",
+      "tripId": "70240013A",
+      "requestId": "70240013",
+      "receivedAt": "2026-11-17T21:17:14.742Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "Mr. Jerry",
+        "phone": "00447539028246",
+        "email": null
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794950234000",
+      "whatsapp": {
+        "status": "not_sent",
+        "attempts": 0
+      },
+      "email": {
+        "status": "skipped",
+        "attempts": 0,
+        "reason": "No valid email address"
+      }
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71739655",
+      "bookingId": "71739655",
+      "tripId": "70239999A",
+      "requestId": "70239999",
+      "receivedAt": "2026-11-17T21:17:26.535Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "Lily Du Bled",
+        "phone": "00447555576877",
+        "email": "LILLYDUBLED@ICLOUD.COM"
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794950246000",
+      "whatsapp": {
+        "status": "not_sent",
+        "attempts": 0
+      },
+      "email": {
+        "status": "sent",
+        "attempts": 1,
+        "channel": "email",
+        "recipient": "LILLYDUBLED@ICLOUD.COM",
+        "sentAt": "2026-11-17T21:53:26.815Z",
+        "submittedAt": "2026-11-17T21:53:26.815Z",
+        "providerResponse": {
+          "provider": "microsoft-graph",
+          "httpStatus": 202,
+          "requestId": "fc38132e-1d90-4258-a088-6b4ac1a187ba",
+          "accepted": true
+        }
+      }
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71739644",
+      "bookingId": "71739644",
+      "tripId": "70239988A",
+      "requestId": "70239988",
+      "receivedAt": "2026-11-17T21:17:36.962Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "Elizabeth Pannell",
+        "phone": "00447908771072",
+        "email": "ELIZABETHREAH84@GMAIL.COM"
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794950256000",
+      "whatsapp": {
+        "status": "not_sent",
+        "attempts": 0
+      },
+      "email": {
+        "status": "sent",
+        "attempts": 1,
+        "channel": "email",
+        "recipient": "ELIZABETHREAH84@GMAIL.COM",
+        "sentAt": "2026-11-17T21:53:50.775Z",
+        "submittedAt": "2026-11-17T21:53:50.775Z",
+        "providerResponse": {
+          "provider": "microsoft-graph",
+          "httpStatus": 202,
+          "requestId": "869bd96f-2f3d-4f7d-ac30-fdf816545088",
+          "accepted": true
+        }
+      }
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71739584",
+      "bookingId": "71739584",
+      "tripId": "70239667A",
+      "requestId": "70239667",
+      "receivedAt": "2026-11-17T21:17:44.525Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "Candi Trabucatti",
+        "phone": "00447857381301",
+        "email": "CANDIJTRABUCATTI@HOTMAIL.COM"
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794950264000",
+      "whatsapp": {
+        "status": "not_sent",
+        "attempts": 0
+      },
+      "email": {
+        "status": "sent",
+        "attempts": 1,
+        "channel": "email",
+        "recipient": "CANDIJTRABUCATTI@HOTMAIL.COM",
+        "sentAt": "2026-11-17T21:54:26.178Z",
+        "submittedAt": "2026-11-17T21:54:26.178Z",
+        "providerResponse": {
+          "provider": "microsoft-graph",
+          "httpStatus": 202,
+          "requestId": "3394be30-a9e5-4baa-9997-a862649b7f6d",
+          "accepted": true
+        }
+      }
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71739741",
+      "bookingId": "71739741",
+      "tripId": "70240108A",
+      "requestId": "70240108",
+      "receivedAt": "2026-11-17T21:17:57.786Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "Md Mahmudul Hasan Arif",
+        "phone": "008801724177537",
+        "email": "arifmahmudulhasan84@gmail.com"
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794950277000",
+      "whatsapp": {
+        "status": "not_sent",
+        "attempts": 0
+      },
+      "email": {
+        "status": "not_sent",
+        "attempts": 0
+      }
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71739672",
+      "bookingId": "71739672",
+      "tripId": "70240024A",
+      "requestId": "70240024",
+      "receivedAt": "2026-11-17T21:18:01.285Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "Ms. Mavis",
+        "phone": "00447941796510",
+        "email": null
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794950281000",
+      "whatsapp": {
+        "status": "not_sent",
+        "attempts": 0
+      },
+      "email": {
+        "status": "skipped",
+        "attempts": 0,
+        "reason": "No valid email address"
+      }
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71739526",
+      "bookingId": "71739526",
+      "tripId": "70239800A",
+      "requestId": "70239800",
+      "receivedAt": "2026-11-17T21:20:53.560Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "Matt Judge",
+        "phone": "00447841599445",
+        "email": "MATT@SEATUNIQUE.COM"
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794950453000",
+      "whatsapp": {
+        "status": "not_sent",
+        "attempts": 0
+      },
+      "email": {
+        "status": "not_sent",
+        "attempts": 0
+      }
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71739700",
+      "bookingId": "71739700",
+      "tripId": "70240057A",
+      "requestId": "70240057",
+      "receivedAt": "2026-11-17T21:21:01.555Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "Yasmin Jaafri",
+        "phone": "00447903145944",
+        "email": "serenaj12@hotmail.co.uk"
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794950460000",
+      "whatsapp": {
+        "status": "not_sent",
+        "attempts": 0
+      },
+      "email": {
+        "status": "not_sent",
+        "attempts": 0
+      }
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71739657",
+      "bookingId": "71739657",
+      "tripId": "70240002A",
+      "requestId": "70240002",
+      "receivedAt": "2026-11-17T21:22:00.723Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "Chloe Nicola",
+        "phone": "00447469676426",
+        "email": "chlonicola95@gmail.com"
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794950520000",
+      "whatsapp": {
+        "status": "not_sent",
+        "attempts": 0
+      },
+      "email": {
+        "status": "not_sent",
+        "attempts": 0
+      }
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71739518",
+      "bookingId": "71739518",
+      "tripId": "70239840A",
+      "requestId": "70239840",
+      "receivedAt": "2026-11-17T21:23:58.561Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "Ms. Teresa",
+        "phone": "00447926637904",
+        "email": null
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794950638000",
+      "whatsapp": {
+        "status": "not_sent",
+        "attempts": 0
+      },
+      "email": {
+        "status": "skipped",
+        "attempts": 0,
+        "reason": "No valid email address"
+      }
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71739693",
+      "bookingId": "71739693",
+      "tripId": "70240050A",
+      "requestId": "70240050",
+      "receivedAt": "2026-11-17T21:30:53.966Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "Martin Barrett",
+        "phone": "00447337981361",
+        "email": "martinbarrett72@icloud.com"
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794951053000",
+      "whatsapp": {
+        "status": "not_sent",
+        "attempts": 0
+      },
+      "email": {
+        "status": "not_sent",
+        "attempts": 0
+      }
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71739809",
+      "bookingId": "71739809",
+      "tripId": "70240177A",
+      "requestId": "70240177",
+      "receivedAt": "2026-11-17T21:34:08.592Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "Christopher Austin",
+        "phone": "00447801599434",
+        "email": "ollyaustin@gmail.com"
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794951248000",
+      "whatsapp": {
+        "status": "not_sent",
+        "attempts": 0
+      },
+      "email": {
+        "status": "not_sent",
+        "attempts": 0
+      }
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71739765",
+      "bookingId": "71739765",
+      "tripId": "70237892A",
+      "requestId": "70237892",
+      "receivedAt": "2026-11-17T21:36:50.867Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "Alison Liu",
+        "phone": "00447918671509",
+        "email": null
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794951410000",
+      "whatsapp": {
+        "status": "not_sent",
+        "attempts": 0
+      },
+      "email": {
+        "status": "skipped",
+        "attempts": 0,
+        "reason": "No valid email address"
+      }
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71739805",
+      "bookingId": "71739805",
+      "tripId": "70239933A",
+      "requestId": "70239933",
+      "receivedAt": "2026-11-17T21:38:01.210Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "Leonor Herrera",
+        "phone": "00447460918723",
+        "email": null
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794951480000",
+      "whatsapp": {
+        "status": "not_sent",
+        "attempts": 0
+      },
+      "email": {
+        "status": "skipped",
+        "attempts": 0,
+        "reason": "No valid email address"
+      }
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71739861",
+      "bookingId": "71739861",
+      "tripId": "70240238A",
+      "requestId": "70240238",
+      "receivedAt": "2026-11-17T21:40:31.302Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "Dahan",
+        "phone": "00447832689582",
+        "email": null
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794951630000",
+      "whatsapp": {
+        "status": "not_sent",
+        "attempts": 0
+      },
+      "email": {
+        "status": "skipped",
+        "attempts": 0,
+        "reason": "No valid email address"
+      }
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71739660",
+      "bookingId": "71739660",
+      "tripId": "70239927A",
+      "requestId": "70239927",
+      "receivedAt": "2026-11-17T21:43:30.337Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "Ghandi",
+        "phone": "00447824818089",
+        "email": null
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794951809000",
+      "whatsapp": {
+        "status": "not_sent",
+        "attempts": 0
+      },
+      "email": {
+        "status": "skipped",
+        "attempts": 0,
+        "reason": "No valid email address"
+      }
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71739804",
+      "bookingId": "71739804",
+      "tripId": "70239905A",
+      "requestId": "70239905",
+      "receivedAt": "2026-11-17T21:46:27.035Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "Rachel",
+        "phone": "00447735262838",
+        "email": "HAROONKHAN7701@GMAIL.COM"
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794951986000",
+      "whatsapp": {
+        "status": "not_sent",
+        "attempts": 0
+      },
+      "email": {
+        "status": "not_sent",
+        "attempts": 0
+      }
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71739697",
+      "bookingId": "71739697",
+      "tripId": "70239173A",
+      "requestId": "70239173",
+      "receivedAt": "2026-11-17T21:46:59.130Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "Owen //reception //",
+        "phone": "00441293854042",
+        "email": "RECEPTION@ROFFEYPARK.AC.UK"
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794952018000",
+      "whatsapp": {
+        "status": "not_sent",
+        "attempts": 0
+      },
+      "email": {
+        "status": "not_sent",
+        "attempts": 0
+      }
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71739816",
+      "bookingId": "71739816",
+      "tripId": "70240187A",
+      "requestId": "70240187",
+      "receivedAt": "2026-11-17T21:47:03.565Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "Chris",
+        "phone": "00447793539579",
+        "email": null
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794952023000",
+      "whatsapp": {
+        "status": "not_sent",
+        "attempts": 0
+      },
+      "email": {
+        "status": "skipped",
+        "attempts": 0,
+        "reason": "No valid email address"
+      }
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71739835",
+      "bookingId": "71739835",
+      "tripId": "70240208A",
+      "requestId": "70240208",
+      "receivedAt": "2026-11-17T21:47:58.257Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "Jamie Jackson",
+        "phone": "00447889274147",
+        "email": "jamiejackson.orpheus@gmail.com"
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794952078000",
+      "whatsapp": {
+        "status": "not_sent",
+        "attempts": 0
+      },
+      "email": {
+        "status": "not_sent",
+        "attempts": 0
+      }
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71739856",
+      "bookingId": "71739856",
+      "tripId": "70240234A",
+      "requestId": "70240234",
+      "receivedAt": "2026-11-17T21:48:49.679Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "Ms. Marsha",
+        "phone": "00447943265104",
+        "email": null
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794952129000",
+      "whatsapp": {
+        "status": "not_sent",
+        "attempts": 0
+      },
+      "email": {
+        "status": "skipped",
+        "attempts": 0,
+        "reason": "No valid email address"
+      }
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71739878",
+      "bookingId": "71739878",
+      "tripId": "70240255A",
+      "requestId": "70240255",
+      "receivedAt": "2026-11-17T21:49:59.042Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "Jack",
+        "phone": "00447564427277",
+        "email": null
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794952198000",
+      "whatsapp": {
+        "status": "not_sent",
+        "attempts": 0
+      },
+      "email": {
+        "status": "skipped",
+        "attempts": 0,
+        "reason": "No valid email address"
+      }
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71739857",
+      "bookingId": "71739857",
+      "tripId": "70239950A",
+      "requestId": "70239950",
+      "receivedAt": "2026-11-17T21:53:45.861Z",
+      "sendAfter": "2026-11-17T21:57:17.705Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "George Ibbott",
+        "phone": "00447960087240",
+        "email": "george.ibbott@pangea-resourcing.com"
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794952425000",
+      "whatsapp": {
+        "status": "not_sent",
+        "attempts": 0
+      },
+      "email": {
+        "status": "not_sent",
+        "attempts": 0
+      }
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71739773",
+      "bookingId": "71739773",
+      "tripId": "70240139A",
+      "requestId": "70240139",
+      "receivedAt": "2026-11-17T21:54:34.096Z",
+      "sendAfter": "2026-11-17T21:58:57.592Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "Christina Davis",
+        "phone": "0034711022239",
+        "email": "fitnglow@outlook.com"
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794952473000",
+      "whatsapp": {
+        "status": "not_sent",
+        "attempts": 0
+      },
+      "email": {
+        "status": "not_sent",
+        "attempts": 0
+      }
+    }
+  ]
+}

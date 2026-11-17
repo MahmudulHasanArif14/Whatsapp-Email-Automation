@@ -1,0 +1,83 @@
+{
+  "requests": [
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71740095",
+      "bookingId": "71740095",
+      "tripId": "70240490A",
+      "requestId": "70240490",
+      "receivedAt": "2026-11-17T22:27:38.848Z",
+      "sendAfter": "2026-11-17T22:32:31.207Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "Ana",
+        "phone": "00441342337700",
+        "email": null
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794954458000",
+      "whatsapp": {
+        "status": "failed",
+        "attempts": 4,
+        "channel": "whatsapp",
+        "recipient": "441342337700",
+        "lastError": "OpenWA gateway HTTP 400: {\"message\":\"WhatsApp could not resolve the recipient 441342337700@c.us. Either the number is not on WhatsApp, or this session has no existing chat with it — message it once from the phone, then retry.\",\"error\":\"Bad Request\",\"statusCode\":400}",
+        "lastAttemptAt": "2026-11-17T22:41:35.346Z",
+        "nextRetryAt": "2026-11-17T22:49:35.346Z"
+      },
+      "email": {
+        "status": "skipped",
+        "attempts": 0,
+        "reason": "No valid email address"
+      }
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71740272",
+      "bookingId": "71740272",
+      "tripId": "70240690A",
+      "requestId": "70240690",
+      "receivedAt": "2026-11-17T22:42:29.480Z",
+      "sendAfter": "2026-11-17T22:45:21.645Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "Mark",
+        "phone": "00447808545736",
+        "email": null
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794955348000",
+      "whatsapp": {
+        "status": "not_sent",
+        "attempts": 0
+      },
+      "email": {
+        "status": "skipped",
+        "attempts": 0,
+        "reason": "No valid email address"
+      }
+    },
+    {
+      "eventId": "DISPATCH_BOOKING_COMPLETE:71739866",
+      "bookingId": "71739866",
+      "tripId": "70239080A",
+      "requestId": "70239080",
+      "receivedAt": "2026-11-17T22:44:21.001Z",
+      "sendAfter": "2026-11-17T22:46:47.436Z",
+      "eligibility": "verified",
+      "customer": {
+        "name": "Michael Eels",
+        "phone": "00447736167588",
+        "email": "michaeleels@ymail.com"
+      },
+      "bookingStatus": "COMPLETED",
+      "completedAtMs": "1794955460000",
+      "whatsapp": {
+        "status": "not_sent",
+        "attempts": 0
+      },
+      "email": {
+        "status": "not_sent",
+        "attempts": 0
+      }
+    }
+  ]
+}

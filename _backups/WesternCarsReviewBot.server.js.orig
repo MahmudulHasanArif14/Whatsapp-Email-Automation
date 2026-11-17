@@ -1,0 +1,711 @@
+"use strict";
+
+require("dotenv").config();
+
+const express = require("express");
+const fs = require("node:fs/promises");
+const path = require("node:path");
+const crypto = require("node:crypto");
+const { ConfidentialClientApplication } = require("@azure/msal-node");
+
+const app = express();
+
+app.disable("x-powered-by");
+app.use(express.json({ limit: "100kb", strict: true }));
+
+// --------------------------------------------------
+// CONFIGURATION
+// --------------------------------------------------
+
+const PORT = Number(process.env.PORT || 3000);
+
+const DATA_DIR = path.join(__dirname, "data");
+const DATA_FILE = path.join(DATA_DIR, "review-requests.json");
+const ARCHIVE_FILE = path.join(DATA_DIR, "sent-requests.json");
+const SECRET_FILE = path.join(__dirname, ".webhook-secret");
+
+const QUEUE_INTERVAL_MS = 60_000;
+
+let webhookSecret = "";
+let writeQueue = Promise.resolve();
+let workerRunning = false;
+
+// --------------------------------------------------
+// GENERAL HELPERS
+// --------------------------------------------------
+
+function safeString(value) {
+  if (typeof value !== "string" && typeof value !== "number") {
+    return "";
+  }
+
+  const result = String(value).trim();
+
+  // Reject unresolved iCabbi template placeholders.
+  if (/^#[a-z0-9_]+#?$/i.test(result)) {
+    return "";
+  }
+
+  return result;
+}
+
+function normalisePhone(phone) {
+  let number = String(phone || "").replace(/\D/g, "");
+
+  // Convert malformed leading zeroes before Bangladesh country code.
+  number = number.replace(/^0+(?=880)/, "");
+
+  // Convert international 00 prefix.
+  if (number.startsWith("00")) {
+    number = number.slice(2);
+  }
+
+  return number;
+}
+
+function isValidEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email || "").trim());
+}
+
+function matchesSecret(candidate) {
+  if (!webhookSecret || typeof candidate !== "string") {
+    return false;
+  }
+
+  const expected = Buffer.from(webhookSecret, "utf8");
+  const supplied = Buffer.from(candidate, "utf8");
+
+  return (
+    expected.length === supplied.length &&
+    crypto.timingSafeEqual(expected, supplied)
+  );
+}
+
+function enabled(name) {
+  return process.env[name] === "true";
+}
+
+// --------------------------------------------------
+// JSON STORAGE
+// --------------------------------------------------
+
+async function readStore() {
+  try {
+    const raw = await fs.readFile(DATA_FILE, "utf8");
+    const store = JSON.parse(raw);
+
+    if (!Array.isArray(store.requests)) {
+      throw new Error("Invalid review-request store");
+    }
+
+    return store;
+  } catch (error) {
+    if (error.code === "ENOENT") {
+      return { requests: [] };
+    }
+
+    throw error;
+  }
+}
+
+async function readArchive() {
+  try {
+    const raw = await fs.readFile(ARCHIVE_FILE, "utf8");
+    const archive = JSON.parse(raw);
+
+    if (!Array.isArray(archive.requests)) {
+      throw new Error("Invalid archive store");
+    }
+
+    return archive;
+  } catch (error) {
+    if (error.code === "ENOENT") {
+      return { requests: [] };
+    }
+
+    throw error;
+  }
+}
+
+async function atomicWrite(file, data) {
+  const tempFile = `${file}.${crypto.randomUUID()}.tmp`;
+
+  try {
+    await fs.writeFile(tempFile, JSON.stringify(data, null, 2), {
+      encoding: "utf8",
+      flag: "wx",
+    });
+
+    await fs.rename(tempFile, file);
+  } catch (error) {
+    await fs.rm(tempFile, { force: true }).catch(() => {});
+    throw error;
+  }
+}
+
+function updateStore(mutator) {
+  const operation = writeQueue.then(async () => {
+    const store = await readStore();
+    const result = await mutator(store);
+
+    await atomicWrite(DATA_FILE, store);
+
+    return result;
+  });
+
+  writeQueue = operation.catch(() => {});
+
+  return operation;
+}
+
+// --------------------------------------------------
+// HEALTH CHECK
+// --------------------------------------------------
+
+app.get("/health", (req, res) => {
+  res.json({
+    status: "ok",
+    service: "western-cars-review-bot",
+    whatsappEnabled: enabled("ENABLE_WHATSAPP"),
+    emailEnabled: enabled("ENABLE_EMAIL"),
+    queueIntervalMs: QUEUE_INTERVAL_MS,
+  });
+});
+
+// Old public test endpoint intentionally disabled.
+app.all("/test/event", (req, res) => {
+  res.status(404).json({ error: "Not found" });
+});
+
+// --------------------------------------------------
+// ICABBI WEBHOOK
+// --------------------------------------------------
+
+app.post("/webhooks/icabbi", async (req, res) => {
+  const suppliedKey = req.query.key;
+
+  console.log("Webhook authentication diagnostics:", {
+    keyProvided: typeof suppliedKey === "string",
+    suppliedLength: typeof suppliedKey === "string" ? suppliedKey.length : 0,
+    expectedLength: webhookSecret.length,
+    matches: matchesSecret(suppliedKey),
+  });
+
+  if (!matchesSecret(suppliedKey)) {
+    return res.status(401).json({ error: "Unauthorized" });
+  }
+
+  try {
+    const body = req.body;
+
+    if (!body || typeof body !== "object" || Array.isArray(body)) {
+      return res.status(400).json({
+        error: "Expected a JSON object",
+      });
+    }
+
+    const event = safeString(body.event);
+
+    if (event && event !== "DISPATCH_BOOKING_COMPLETE") {
+      return res.status(400).json({
+        error: "Unexpected event type",
+      });
+    }
+
+    const bookingId =
+      safeString(body.booking_id) ||
+      safeString(body.id) ||
+      safeString(body.trip_id) ||
+      safeString(body.request_id);
+
+    if (!bookingId) {
+      return res.status(400).json({
+        error: "No valid booking identifier",
+      });
+    }
+
+    const result = await updateStore(async (store) => {
+      const archive = await readArchive();
+
+      const alreadyArchived = archive.requests.some(
+        (item) => item.bookingId === bookingId,
+      );
+
+      const alreadyQueued = store.requests.some(
+        (item) => item.bookingId === bookingId,
+      );
+
+      if (alreadyArchived || alreadyQueued) {
+        return { duplicate: true };
+      }
+
+      store.requests.push({
+        eventId: `DISPATCH_BOOKING_COMPLETE:${bookingId}`,
+        bookingId,
+        tripId: safeString(body.trip_id) || null,
+        requestId: safeString(body.request_id) || null,
+        receivedAt: new Date().toISOString(),
+
+        // Authenticated iCabbi completion webhook.
+        eligibility: "verified",
+
+        customer: {
+          name: safeString(body.booking_customer_name) || null,
+          phone: safeString(body.booking_customer_phone) || null,
+          email: safeString(body.booking_customer_email) || null,
+        },
+
+        bookingStatus: safeString(body.booking_status) || null,
+        completedAtMs: safeString(body.bookingclosedate_ms) || null,
+
+        whatsapp: {
+          status: "not_sent",
+          attempts: 0,
+        },
+
+        email: {
+          status: "not_sent",
+          attempts: 0,
+        },
+      });
+
+      return { duplicate: false };
+    });
+
+    console.log("iCabbi webhook received:", {
+      bookingId,
+      duplicate: result.duplicate,
+    });
+
+    return res.status(200).json({
+      received: true,
+      duplicate: result.duplicate,
+      messagesSent: false,
+    });
+  } catch (error) {
+    console.error("Webhook processing failed:", error.message);
+
+    return res.status(500).json({
+      error: "Webhook processing failed",
+    });
+  }
+});
+
+// --------------------------------------------------
+// OPENWA WHATSAPP
+// --------------------------------------------------
+
+async function sendWhatsApp(phone, message) {
+  if (!enabled("ENABLE_WHATSAPP")) {
+    return { status: "disabled" };
+  }
+
+  const number = normalisePhone(phone);
+
+  if (!number) {
+    return {
+      status: "failed",
+      reason: "Missing phone number",
+    };
+  }
+
+  const baseUrl = process.env.OPENWA_BASE_URL;
+  const apiKey = process.env.OPENWA_API_KEY;
+
+  if (!baseUrl || !apiKey) {
+    throw new Error("OpenWA configuration is missing");
+  }
+
+  const response = await fetch(
+    `${baseUrl.replace(/\/+$/, "")}/api/messages/sendText`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-API-Key": apiKey,
+      },
+      body: JSON.stringify({
+        to: `${number}@c.us`,
+        content: message,
+        options: {},
+      }),
+      signal: AbortSignal.timeout(30000),
+    },
+  );
+
+  if (!response.ok) {
+    const details = await response.text().catch(() => "");
+    throw new Error(`OpenWA HTTP ${response.status}: ${details.slice(0, 300)}`);
+  }
+
+  return {
+    status: "submitted",
+    result: await response.json(),
+  };
+}
+
+// --------------------------------------------------
+// MICROSOFT GRAPH EMAIL
+// --------------------------------------------------
+
+function createMsalClient() {
+  const { MS_CLIENT_ID, MS_TENANT_ID, MS_CLIENT_SECRET } = process.env;
+
+  if (!MS_CLIENT_ID || !MS_TENANT_ID || !MS_CLIENT_SECRET) {
+    throw new Error("Microsoft Graph configuration is missing");
+  }
+
+  return new ConfidentialClientApplication({
+    auth: {
+      clientId: MS_CLIENT_ID,
+      authority: `https://login.microsoftonline.com/${MS_TENANT_ID}`,
+      clientSecret: MS_CLIENT_SECRET,
+    },
+  });
+}
+
+async function sendReviewEmail(email, name) {
+  if (!enabled("ENABLE_EMAIL")) {
+    return { status: "disabled" };
+  }
+
+  if (!isValidEmail(email)) {
+    return {
+      status: "failed",
+      reason: "Invalid email address",
+    };
+  }
+
+  const emailFrom = process.env.EMAIL_FROM;
+
+  if (!emailFrom) {
+    throw new Error("EMAIL_FROM is missing");
+  }
+
+  const msal = createMsalClient();
+
+  const token = await msal.acquireTokenByClientCredential({
+    scopes: ["https://graph.microsoft.com/.default"],
+  });
+
+  if (!token?.accessToken) {
+    throw new Error("Could not obtain Microsoft Graph access token");
+  }
+
+  const customerName = safeString(name) || "there";
+
+  const reviewUrl = "https://g.page/r/CW8I7lfBBbQnEBM/review";
+
+  const response = await fetch(
+    `https://graph.microsoft.com/v1.0/users/${encodeURIComponent(emailFrom)}/sendMail`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token.accessToken}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        message: {
+          subject: "Thank you for travelling with Western Cars",
+          body: {
+            contentType: "Text",
+            content:
+              `Hello ${customerName},\n\n` +
+              "Thank you for travelling with Western Cars. " +
+              "We would appreciate it if you could share your feedback " +
+              "about your journey.\n\n" +
+              `Leave your review here: ${reviewUrl}\n\n` +
+              "Thank you,\nWestern Cars",
+          },
+          toRecipients: [
+            {
+              emailAddress: {
+                address: email,
+              },
+            },
+          ],
+        },
+        saveToSentItems: true,
+      }),
+      signal: AbortSignal.timeout(30000),
+    },
+  );
+
+  if (!response.ok) {
+    const details = await response.text().catch(() => "");
+
+    throw new Error(
+      `Microsoft Graph HTTP ${response.status}: ${details.slice(0, 500)}`,
+    );
+  }
+
+  return { status: "submitted" };
+}
+
+// --------------------------------------------------
+// UPDATE INDIVIDUAL MESSAGE STATUS
+// --------------------------------------------------
+
+async function updateMessageStatus(
+  bookingId,
+  channel,
+  status,
+  errorMessage = null,
+) {
+  return updateStore((store) => {
+    const booking = store.requests.find((item) => item.bookingId === bookingId);
+
+    if (!booking) return;
+
+    if (!booking[channel]) {
+      booking[channel] = {
+        status: "not_sent",
+        attempts: 0,
+      };
+    }
+
+    booking[channel].status = status;
+    booking[channel].attempts = (booking[channel].attempts || 0) + 1;
+
+    if (status === "sent") {
+      booking[channel].sentAt = new Date().toISOString();
+      delete booking[channel].lastError;
+    }
+
+    if (status === "failed") {
+      booking[channel].lastError = errorMessage;
+      booking[channel].lastAttemptAt = new Date().toISOString();
+    }
+  });
+}
+
+// --------------------------------------------------
+// ARCHIVE COMPLETED BOOKINGS
+// --------------------------------------------------
+
+async function archiveCompleted(bookingId) {
+  await updateStore(async (store) => {
+    const index = store.requests.findIndex(
+      (item) => item.bookingId === bookingId,
+    );
+
+    if (index === -1) return;
+
+    const booking = store.requests[index];
+
+    const hasPhone = Boolean(normalisePhone(booking.customer?.phone));
+
+    const hasEmail = isValidEmail(booking.customer?.email);
+
+    const whatsappDone =
+      !hasPhone ||
+      booking.whatsapp?.status === "sent" ||
+      booking.whatsapp?.status === "skipped";
+
+    const emailDone =
+      !hasEmail ||
+      booking.email?.status === "sent" ||
+      booking.email?.status === "skipped";
+
+    if (!whatsappDone || !emailDone) return;
+
+    const archive = await readArchive();
+
+    const alreadyArchived = archive.requests.some(
+      (item) => item.bookingId === bookingId,
+    );
+
+    if (!alreadyArchived) {
+      archive.requests.push({
+        ...booking,
+        archivedAt: new Date().toISOString(),
+      });
+
+      await atomicWrite(ARCHIVE_FILE, archive);
+    }
+
+    store.requests.splice(index, 1);
+
+    console.log(`Booking ${bookingId} archived.`);
+  });
+}
+
+// --------------------------------------------------
+// PROCESS ONE BOOKING
+// --------------------------------------------------
+
+async function processNextBooking() {
+  if (workerRunning) {
+    console.log("Queue worker is already running.");
+    return;
+  }
+
+  workerRunning = true;
+
+  try {
+    const store = await readStore();
+
+    const booking = store.requests[0];
+
+    if (!booking) {
+      console.log("Review queue empty.");
+      return;
+    }
+
+    const bookingId = booking.bookingId;
+
+    console.log(`Processing booking ${bookingId}`);
+
+    // ----------------------------------------------
+    // WHATSAPP
+    // ----------------------------------------------
+
+    const phone = normalisePhone(booking.customer?.phone);
+
+    if (!phone) {
+      await updateStore((s) => {
+        const item = s.requests.find((r) => r.bookingId === bookingId);
+        if (item) {
+          item.whatsapp.status = "skipped";
+          item.whatsapp.reason = "No valid phone number";
+        }
+      });
+    } else if (
+      booking.whatsapp?.status !== "sent" &&
+      booking.whatsapp?.status !== "skipped"
+    ) {
+      if (!enabled("ENABLE_WHATSAPP")) {
+        console.log("WhatsApp disabled; leaving message pending.");
+      } else {
+        try {
+          const result = await sendWhatsApp(
+            phone,
+            "Thank you for travelling with Western Cars. " +
+              "We would appreciate your feedback about your journey. " +
+              "You can leave your review here: " +
+              "https://g.page/r/CW8I7lfBBbQnEBM/review",
+          );
+
+          if (result.status === "submitted") {
+            await updateMessageStatus(bookingId, "whatsapp", "sent");
+
+            console.log(`WhatsApp accepted for ${bookingId}.`);
+          }
+        } catch (error) {
+          await updateMessageStatus(
+            bookingId,
+            "whatsapp",
+            "failed",
+            error.message,
+          );
+
+          console.error(`WhatsApp failed for ${bookingId}:`, error.message);
+        }
+      }
+    }
+
+    // ----------------------------------------------
+    // EMAIL
+    // ----------------------------------------------
+
+    const email = String(booking.customer?.email || "").trim();
+
+    if (!isValidEmail(email)) {
+      await updateStore((s) => {
+        const item = s.requests.find((r) => r.bookingId === bookingId);
+        if (item) {
+          item.email.status = "skipped";
+          item.email.reason = "No valid email address";
+        }
+      });
+    } else if (
+      booking.email?.status !== "sent" &&
+      booking.email?.status !== "skipped"
+    ) {
+      if (!enabled("ENABLE_EMAIL")) {
+        console.log("Email disabled; leaving message pending.");
+      } else {
+        try {
+          const result = await sendReviewEmail(
+            email,
+            booking.customer?.name || "there",
+          );
+
+          if (result.status === "submitted") {
+            await updateMessageStatus(bookingId, "email", "sent");
+
+            console.log(`Email accepted for ${bookingId}.`);
+          }
+        } catch (error) {
+          await updateMessageStatus(
+            bookingId,
+            "email",
+            "failed",
+            error.message,
+          );
+
+          console.error(`Email failed for ${bookingId}:`, error.message);
+        }
+      }
+    }
+
+    // ----------------------------------------------
+    // ARCHIVE IF ALL APPLICABLE CHANNELS ARE DONE
+    // ----------------------------------------------
+
+    await archiveCompleted(bookingId);
+  } catch (error) {
+    console.error("Queue worker error:", error.message);
+  } finally {
+    workerRunning = false;
+  }
+}
+
+// --------------------------------------------------
+// START SERVER AND QUEUE
+// --------------------------------------------------
+
+async function start() {
+  try {
+    await fs.mkdir(DATA_DIR, { recursive: true });
+
+    webhookSecret = (await fs.readFile(SECRET_FILE, "utf8")).trim();
+
+    if (!/^[a-f0-9]{64}$/.test(webhookSecret)) {
+      throw new Error("Invalid webhook secret format");
+    }
+
+    // Ensure both JSON files exist.
+    try {
+      await fs.access(DATA_FILE);
+    } catch {
+      await atomicWrite(DATA_FILE, { requests: [] });
+    }
+
+    try {
+      await fs.access(ARCHIVE_FILE);
+    } catch {
+      await atomicWrite(ARCHIVE_FILE, { requests: [] });
+    }
+
+    app.listen(PORT, "127.0.0.1", () => {
+      console.log("------------------------------------");
+      console.log("Western Cars Review Bot started");
+      console.log(`Server: http://127.0.0.1:${PORT}`);
+      console.log(`Webhook secret loaded: ${Boolean(webhookSecret)}`);
+      console.log(`WhatsApp enabled: ${enabled("ENABLE_WHATSAPP")}`);
+      console.log(`Email enabled: ${enabled("ENABLE_EMAIL")}`);
+      console.log("Queue interval: 60 seconds");
+      console.log("One booking per queue run");
+      console.log("------------------------------------");
+
+      // Wait 60 seconds before the first automatic run.
+      setInterval(processNextBooking, QUEUE_INTERVAL_MS);
+    });
+  } catch (error) {
+    console.error("Startup failed:", error.message);
+    process.exit(1);
+  }
+}
+
+start();
