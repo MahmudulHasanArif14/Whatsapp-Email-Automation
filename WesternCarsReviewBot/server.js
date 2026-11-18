@@ -50,7 +50,29 @@ function numEnv(name, fallback) {
 // people who have moved on are what get numbers reported).
 const WA_MAX_AGE_HOURS = numEnv("WA_MAX_AGE_HOURS", 2);
 // Most WhatsApp messages submitted per local calendar day.
-const WA_DAILY_CAP = numEnv("WA_DAILY_CAP", 100);
+const WA_DAILY_CAP = numEnv("WA_DAILY_CAP", 40);
+// Warm-up after a ban or new number: the cap starts at WA_WARMUP_START_CAP on
+// WA_WARMUP_START_DATE (YYYY-MM-DD) and grows by WA_WARMUP_STEP per day until
+// it reaches WA_DAILY_CAP. Leave the date empty to disable warm-up.
+const WA_WARMUP_START_DATE = process.env.WA_WARMUP_START_DATE || "";
+const WA_WARMUP_START_CAP = numEnv("WA_WARMUP_START_CAP", 10);
+const WA_WARMUP_STEP = numEnv("WA_WARMUP_STEP", 5);
+// Only send WhatsApp messages during these local hours, e.g. "8-21" (0 disables).
+const WA_SEND_HOURS = (process.env.WA_SEND_HOURS || "8-21").match(/^(\d{1,2})-(\d{1,2})$/);
+
+function waEffectiveCap() {
+  if (!WA_DAILY_CAP) return 0;
+  const start = Date.parse(WA_WARMUP_START_DATE);
+  if (!Number.isFinite(start)) return WA_DAILY_CAP;
+  const days = Math.max(0, Math.floor((Date.now() - start) / 86_400_000));
+  return Math.min(WA_DAILY_CAP, WA_WARMUP_START_CAP + days * WA_WARMUP_STEP);
+}
+
+function waWithinSendHours(now = new Date()) {
+  if (!WA_SEND_HOURS) return true;
+  const h = now.getHours();
+  return h >= Number(WA_SEND_HOURS[1]) && h < Number(WA_SEND_HOURS[2]);
+}
 // Random gap between queue runs (ignored when QUEUE_INTERVAL_MS is set).
 const JITTER_MIN_MS = numEnv("QUEUE_JITTER_MIN_MS", 15_000);
 const JITTER_MAX_MS = Math.max(JITTER_MIN_MS, numEnv("QUEUE_JITTER_MAX_MS", 25_000));
@@ -976,7 +998,10 @@ function channelActionable(booking, channel, now) {
   if (channel === "whatsapp" && now < nextWhatsAppAllowedAt) return false;
 
   // Daily cap: jobs simply wait until tomorrow (never marked sent or skipped).
-  if (channel === "whatsapp" && WA_DAILY_CAP && waSentToday >= WA_DAILY_CAP) return false;
+  if (channel === "whatsapp" && waEffectiveCap() && waSentToday >= waEffectiveCap()) return false;
+
+  // Outside sending hours: wait (the age limit still skips stale bookings).
+  if (channel === "whatsapp" && !waWithinSendHours()) return false;
 
   return retryDue(state, now);
 }
