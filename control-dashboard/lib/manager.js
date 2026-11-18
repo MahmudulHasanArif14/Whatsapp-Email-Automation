@@ -163,6 +163,7 @@ class Manager {
       state.activity = data.activity(dirs.bot);
       const { rows, errors } = data.allRows(dirs.bot);
       state.stats = { whatsapp: data.statsFor(rows, "whatsapp"), email: data.statsFor(rows, "email") };
+      state.stats.whatsapp.capUsage = data.waCapUsage(rows, readEnvFile(dirs.bot), this.openwa.wa && this.openwa.wa.senderKey);
       const q = data.queueView(dirs.bot);
       state.queueTotals = q.totals;
       state.storageErrors = [...new Set([...errors, ...q.errors])];

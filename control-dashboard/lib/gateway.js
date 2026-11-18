@@ -201,6 +201,8 @@ class GatewayService extends OpenWaService {
       wa.label = "Connected";
       wa.detail = "WhatsApp session is ready to send";
       wa.account = session.phone ? `+${String(session.phone).replace(/\D/g, "")}` : null;
+      // Same identity the Review Bot stamps on each message it sends.
+      wa.senderKey = session.id ? `${session.id}:${session.phone || ""}` : null;
       this.qr = { value: null, changedAt: now, matrix: null };
 
       if (previous !== "connected") {

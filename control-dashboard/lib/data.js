@@ -152,6 +152,7 @@ function messageRow(booking, channel, where, sending) {
     status,
     statusLabel: STATUS_LABEL[status],
     submittedAt,
+    sender: state.sender || null,
     receivedAt: booking.receivedAt || null,
     providerResponse: providerText(channel, state.providerResponse),
     error: state.lastError || state.reason || null,
@@ -187,6 +188,37 @@ function allRows(botDir) {
 
 function sameLocalDay(a, b) {
   return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
+}
+
+// Mirrors the Review Bot's daily WhatsApp cap (WA_DAILY_CAP, optional warm-up
+// ramp) and counts only messages sent today by the currently linked number.
+function waCapUsage(rows, env, senderKey, now = new Date()) {
+  const num = (v, d) => (v !== undefined && v !== "" && Number.isFinite(Number(v)) ? Number(v) : d);
+  const dailyCap = num(env.WA_DAILY_CAP, 40);
+  const startCap = num(env.WA_WARMUP_START_CAP, 10);
+  const step = num(env.WA_WARMUP_STEP, 5);
+  const start = Date.parse(env.WA_WARMUP_START_DATE || "");
+
+  let cap = dailyCap;
+  if (dailyCap && Number.isFinite(start)) {
+    const days = Math.max(0, Math.floor((now.getTime() - start) / 86_400_000));
+    cap = Math.min(dailyCap, startCap + days * step);
+  }
+
+  // Unknown while the gateway is not connected: we cannot tell which messages count.
+  let used = null;
+  if (senderKey) {
+    used = rows.filter(
+      (r) =>
+        r.channel === "whatsapp" &&
+        r.status === "submitted" &&
+        r.submittedAt &&
+        r.sender === senderKey &&
+        sameLocalDay(new Date(r.submittedAt), now),
+    ).length;
+  }
+
+  return { cap, used, unlimited: !dailyCap, warmup: Boolean(dailyCap && Number.isFinite(start)) };
 }
 
 function statsFor(rows, channel) {
@@ -338,6 +370,7 @@ module.exports = {
   setSending,
   allRows,
   statsFor,
+  waCapUsage,
   filterRows,
   queueView,
   activity,

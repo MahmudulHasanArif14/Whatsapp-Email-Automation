@@ -260,6 +260,13 @@
     return h("div", { class: `stat ${kind}` }, h("span", { class: "num" }, num ?? "—"), h("span", { class: "lbl" }, label));
   }
 
+  // Daily WhatsApp cap used by the currently linked number (resets when the number changes).
+  function capStat(c) {
+    if (c.unlimited) return stat("No cap", "Cap used");
+    const full = c.used !== null && c.used >= c.cap;
+    return stat(c.used === null ? `— / ${c.cap}` : `${c.used} / ${c.cap}`, c.warmup ? "Cap used (warm-up)" : "Cap used", full ? "bad" : c.used !== null && c.used >= c.cap * 0.8 ? "warn" : "");
+  }
+
   function statsCard(title, st, channelNote) {
     if (!st) return h("div", { class: "card" }, h("h3", {}, title), h("p", { class: "muted" }, "Review Bot folder not set."));
 
@@ -268,6 +275,7 @@
       h("div", { class: "grid cols-6" },
         stat(st.totalSubmitted, "Total submitted"),
         stat(st.submittedToday, "Today"),
+        st.capUsage ? capStat(st.capUsage) : null,
         stat(st.submittedThisMonth, "This month"),
         stat(st.pending, "Pending", st.pending ? "warn" : ""),
         stat(st.failed, "Failed", st.failed ? "bad" : ""),
