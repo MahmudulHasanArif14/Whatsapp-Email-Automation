@@ -24,3 +24,8 @@
 *.p12
 *.pfx
 .DS_Store
+
+# Local backups and customer data
+_backups/
+**/data/*.json.bak
+**/data/*.bak
