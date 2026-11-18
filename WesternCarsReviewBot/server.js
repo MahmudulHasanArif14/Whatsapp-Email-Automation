@@ -1169,13 +1169,21 @@ async function processNextBooking() {
     const store = await readStore();
     const now = Date.now();
 
-    // First booking with a channel that can be acted on under the current
-    // toggles. A blocked or failing booking never holds up the ones behind it.
-    const candidate = store.requests.find(
-      (item) =>
-        channelActionable(item, "whatsapp", now) ||
-        channelActionable(item, "email", now),
-    );
+    // Oldest booking (by receivedAt) with a channel that can be acted on under
+    // the current toggles, so messages go out in the order bookings arrived.
+    // A blocked or failing booking never holds up the ones behind it.
+    const candidate = store.requests
+      .filter(
+        (item) =>
+          channelActionable(item, "whatsapp", now) ||
+          channelActionable(item, "email", now),
+      )
+      .reduce((oldest, item) => {
+        if (!oldest) return item;
+        const a = Date.parse(item.receivedAt || "") || Infinity;
+        const b = Date.parse(oldest.receivedAt || "") || Infinity;
+        return a < b ? item : oldest;
+      }, null);
 
     runtimeStatus.lastQueueRunAt = new Date().toISOString();
 
