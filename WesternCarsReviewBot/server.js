@@ -577,6 +577,32 @@ app.post("/webhooks/whatsapp-reply", async (req, res) => {
 
 let gatewaySessionCache = { name: null, id: null };
 
+// Identity of the WhatsApp account currently linked to the gateway
+// ("<session id>:<phone>"). The daily count only includes messages sent by the
+// current identity, so linking a different number or session starts at zero.
+let waSender = null;
+
+function senderKey(session) {
+  return session && session.id ? `${session.id}:${session.phone || ""}` : null;
+}
+
+async function refreshWaSender() {
+  if (process.env.WHATSAPP_PROVIDER !== "openwa-gateway") return;
+
+  try {
+    const name = process.env.OPENWA_GATEWAY_SESSION || "western-cars";
+    const res = await gatewayFetch("/api/sessions");
+    if (!res.ok) return;
+    const body = await res.json();
+    const list = Array.isArray(body) ? body : body.data || body.sessions || [];
+    const session = list.find((item) => item.name === name || item.id === name);
+    const key = senderKey(session);
+    if (key) waSender = key;
+  } catch {
+    // Keep the last known identity.
+  }
+}
+
 async function gatewayFetch(path, options = {}) {
   const base = (process.env.OPENWA_GATEWAY_URL || "http://127.0.0.1:2785").replace(/\/+$/, "");
   const apiKey = process.env.OPENWA_GATEWAY_API_KEY;
@@ -620,6 +646,7 @@ async function gatewaySessionId() {
   }
 
   gatewaySessionCache = { name, id: session.id };
+  waSender = senderKey(session);
 
   return session.id;
 }
@@ -659,7 +686,11 @@ async function sendViaGateway(number, message) {
 
   const result = await response.json();
 
-  return { status: "submitted", result: { ...result, provider: "openwa-gateway" } };
+  return {
+    status: "submitted",
+    sender: waSender,
+    result: { ...result, provider: "openwa-gateway" },
+  };
 }
 
 async function sendWhatsApp(phone, message) {
@@ -906,6 +937,7 @@ function sameLocalDay(a, b) {
 }
 
 async function refreshWhatsAppSentToday() {
+  await refreshWaSender();
   const [store, archive] = await Promise.all([readStore(), readArchive()]);
   const now = new Date();
   const seen = new Set();
@@ -916,7 +948,14 @@ async function refreshWhatsAppSentToday() {
     seen.add(booking.bookingId);
 
     const at = booking.whatsapp && booking.whatsapp.sentAt;
-    if (at && sameLocalDay(new Date(at), now)) count += 1;
+    if (!at || !sameLocalDay(new Date(at), now)) continue;
+
+    // Only messages from the currently linked number/session count. Older
+    // records with no sender were sent before the link changed. If the
+    // identity is unknown (not using the gateway), count everything.
+    if (waSender && booking.whatsapp.sender !== waSender) continue;
+
+    count += 1;
   }
 
   waSentToday = count;
@@ -1043,6 +1082,7 @@ async function updateMessageStatus(
       state.submittedAt = now;
       state.recipient = channelRecipient(booking, channel);
       state.providerResponse = extra.providerResponse || null;
+      if (extra.sender) state.sender = extra.sender;
       delete state.lastError;
       delete state.nextRetryAt;
     }
@@ -1226,6 +1266,7 @@ async function processNextBooking() {
         if (result.status === "submitted") {
           await updateMessageStatus(bookingId, "whatsapp", "sent", null, {
             providerResponse: summariseWhatsAppResponse(result.result),
+            sender: result.sender || null,
           });
 
           recordActivity(`WhatsApp accepted for ${bookingId}`);
